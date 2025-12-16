@@ -1,0 +1,64 @@
+Explanation of Assignment4.py Code:
+
+1. import pandas as pd
+   - Imports the pandas library for data manipulation and analysis.
+
+2. from sklearn.model_selection import train_test_split
+   - Imports the train_test_split function to split the dataset into training and testing sets.
+
+3. from sklearn.ensemble import RandomForestClassifier, AdaBoostClassifier
+   - Imports RandomForestClassifier for bagging and AdaBoostClassifier for boosting.
+
+4. from sklearn.metrics import accuracy_score
+   - Imports accuracy_score to evaluate the model's performance.
+
+5. from sklearn.preprocessing import LabelEncoder
+   - Imports LabelEncoder to convert categorical labels (Genre) into numerical values.
+
+6. data = pd.read_csv('Mall_Customers.csv')
+   - Loads the dataset from the CSV file into a pandas DataFrame.
+
+7. le = LabelEncoder()
+   - Creates an instance of LabelEncoder.
+
+8. data['Genre'] = le.fit_transform(data['Genre'])
+   - Encodes the 'Genre' column: 'Male' to 0, 'Female' to 1.
+
+9. X = data[['Age', 'Annual Income (k$)', 'Spending Score (1-100)']]
+   - Selects the feature columns for the model.
+
+10. y = data['Genre']
+    - Sets the target variable as the encoded 'Genre'.
+
+11. X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.3, random_state=42)
+    - Splits the data into training (70%) and testing (30%) sets with a fixed random state for reproducibility.
+
+12. rf_model = RandomForestClassifier(n_estimators=100, random_state=42)
+    - Creates a Random Forest classifier with 100 trees and fixed random state.
+
+13. rf_model.fit(X_train, y_train)
+    - Trains the Random Forest model on the training data.
+
+14. rf_predictions = rf_model.predict(X_test)
+    - Makes predictions on the test data using the trained Random Forest model.
+
+15. rf_accuracy = accuracy_score(y_test, rf_predictions)
+    - Calculates the accuracy of the Random Forest predictions.
+
+16. print(f"Bagging (Random Forest) Accuracy: {rf_accuracy:.2f}")
+    - Prints the accuracy for Bagging.
+
+17. ada_model = AdaBoostClassifier(n_estimators=100, random_state=42)
+    - Creates an AdaBoost classifier with 100 estimators and fixed random state.
+
+18. ada_model.fit(X_train, y_train)
+    - Trains the AdaBoost model on the training data.
+
+19. ada_predictions = ada_model.predict(X_test)
+    - Makes predictions on the test data using the trained AdaBoost model.
+
+20. ada_accuracy = accuracy_score(y_test, ada_predictions)
+    - Calculates the accuracy of the AdaBoost predictions.
+
+21. print(f"Boosting (AdaBoost) Accuracy: {ada_accuracy:.2f}")
+    - Prints the accuracy for Boosting.
